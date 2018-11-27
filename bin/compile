@@ -14,7 +14,7 @@ CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 echo "The current stack version: ${STACK}"
-PROJECT_VERSION=$(grep -oPm1 "(?<=<TargetFramework>)[^<]+" ${BUILD_DIR}/*.csproj)
+PROJECT_VERSION=$(grep -oPm1 "(?<=<TargetFramework>)[^<]+" ${BUILD_DIR}/src/*.csproj)
 echo "The current project version: ${PROJECT_VERSION}"
 
 NETCORE_VERSION="2.1.500"
@@ -67,13 +67,13 @@ cd $BUILD_DIR
 dotnet --info
 
 if [ -z ${PROJECT_FILE:-} ]; then
-	PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do find "$x" -maxdepth 1 -name *.csproj; x=`dirname "$x"`; done)
+	PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR}/src -maxdepth 5 -iname Startup.cs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do find "$x" -maxdepth 1 -name *.csproj; x=`dirname "$x"`; done)
 fi
 if [ -z ${PROJECT_NAME:-} ]; then
 	PROJECT_NAME=$(basename ${PROJECT_FILE%.*})
 fi
 echo "publish ${PROJECT_FILE}"
-dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64
-cat << EOT >> ${BUILD_DIR}/Procfile
+dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/src/heroku_output --configuration Release --runtime linux-x64
+cat << EOT >> ${BUILD_DIR}/src/Procfile
 web: cd \$HOME/heroku_output && ASPNETCORE_URLS='http://+:\$PORT' dotnet "./${PROJECT_NAME}.dll"
 EOT
