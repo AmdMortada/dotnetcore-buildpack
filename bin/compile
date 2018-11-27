@@ -20,6 +20,7 @@ echo "The current project version: ${PROJECT_VERSION}"
 NETCORE_VERSION="2.1.500"
 if [ $PROJECT_VERSION == "netcoreapp2.0" ]; then
 	NETCORE_VERSION="2.1.4"
+fi
 if [ $PROJECT_VERSION == "netcoreapp2.1" ]; then
 	NETCORE_VERSION="2.1.5"
 fi
