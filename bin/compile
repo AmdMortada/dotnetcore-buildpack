@@ -26,8 +26,8 @@ if [ $PROJECT_VERSION == "netcoreapp2.1" ]; then
 fi
 echo "The install dotnet sdk version: ${NETCORE_VERSION}"
 
-mkdir -p $BUILD_DIR/.profile.d
-cp $BP_DIR/profile/* $BUILD_DIR/.profile.d/
+mkdir -p $BUILD_DIR/src/.profile.d
+cp $BP_DIR/profile/* $BUILD_DIR/src/.profile.d/
 
 ### Load dependencies
 source $BP_DIR/lib/helpers
@@ -67,7 +67,7 @@ cd $BUILD_DIR
 dotnet --info
 
 if [ -z ${PROJECT_FILE:-} ]; then
-	PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR}/src -maxdepth 5 -iname Startup.cs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do find "$x" -maxdepth 1 -name *.csproj; x=`dirname "$x"`; done)
+	PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR}/src -maxdepth 5 -iname Startup.cs | head -1)); while [[ "$x" =~ $BUILD_DIR/src ]] ; do find "$x" -maxdepth 1 -name *.csproj; x=`dirname "$x"`; done)
 fi
 if [ -z ${PROJECT_NAME:-} ]; then
 	PROJECT_NAME=$(basename ${PROJECT_FILE%.*})
