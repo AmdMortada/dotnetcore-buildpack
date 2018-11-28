@@ -9,12 +9,12 @@ unset GIT_DIR     # Avoid GIT_DIR leak from previous build steps
 		
 
 ### Configure directories
-BUILD_DIR=${1:-}/src
+BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 echo "The current stack version: ${STACK}"
-PROJECT_VERSION=$(grep -oPm1 "(?<=<TargetFramework>)[^<]+" ${BUILD_DIR}/*.csproj)
+PROJECT_VERSION=$(grep -oPm1 "(?<=<TargetFramework>)[^<]+" ${BUILD_DIR}/src/*.csproj)
 echo "The current project version: ${PROJECT_VERSION}"
 
 NETCORE_VERSION="2.1.403"
@@ -67,7 +67,7 @@ cd $BUILD_DIR
 dotnet --info
 
 if [ -z ${PROJECT_FILE:-} ]; then
-	PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do find "$x" -maxdepth 1 -name *.csproj; x=`dirname "$x"`; done)
+	PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR}/src -maxdepth 5 -iname Startup.cs | head -1)); while [[ "$x" =~ $BUILD_DIR/src ]] ; do find "$x" -maxdepth 1 -name *.csproj; x=`dirname "$x"`; done)
 fi
 if [ -z ${PROJECT_NAME:-} ]; then
 	PROJECT_NAME=$(basename ${PROJECT_FILE%.*})
