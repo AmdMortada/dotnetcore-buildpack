@@ -1,0 +1,9 @@
+if [ $PROJECT_VERSION == "netcoreapp2.1" ]; then
+	NETCORE_VERSION="2.1.5"
+fi
+
+
+elif [ $CORE_VER == "2.1.500" ]; then
+          DOTNET_SDK_URL="https://download.visualstudio.microsoft.com/download/pr/e5eef3df-d2e3-429b-8204-f58372eb6263/20c825ddcc6062e93ff0c60e8354d3af/dotnet-sdk-2.1.500-linux-x64.tar.gz"
+      elif [ $CORE_VER == "2.1.5" ]; then
+          DOTNET_SDK_URL="https://download.visualstudio.microsoft.com/download/pr/e5eef3df-d2e3-429b-8204-f58372eb6263/20c825ddcc6062e93ff0c60e8354d3af/dotnet-sdk-2.1.500-linux-x64.tar.gz"

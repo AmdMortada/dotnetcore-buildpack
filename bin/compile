@@ -17,7 +17,7 @@ echo "The current stack version: ${STACK}"
 PROJECT_VERSION=$(grep -oPm1 "(?<=<TargetFramework>)[^<]+" ${BUILD_DIR}/*.csproj)
 echo "The current project version: ${PROJECT_VERSION}"
 
-NETCORE_VERSION="2.1.500"
+NETCORE_VERSION="2.1.403"
 if [ $PROJECT_VERSION == "netcoreapp2.0" ]; then
 	NETCORE_VERSION="2.1.4"
 fi
@@ -74,6 +74,6 @@ if [ -z ${PROJECT_NAME:-} ]; then
 fi
 echo "publish ${PROJECT_FILE}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64
-cat << EOT >> $BUILD_DIR/Procfile
+cat << EOT >> ${BUILD_DIR}/Procfile
 web: cd \$HOME/heroku_output && ASPNETCORE_URLS='http://+:\$PORT' dotnet "./${PROJECT_NAME}.dll"
 EOT
