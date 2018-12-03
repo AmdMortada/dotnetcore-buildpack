@@ -15,7 +15,7 @@ Heroku Buildpacks [How to use](https://devcenter.heroku.com/articles/buildpacks#
 In order to see the buildpack in action, you can click on the button below which will deploy a sample ASP.Net MVC application with Postgres database support to heroku and you can see the build and deployment logs as the application gets deployed for you. This application was developed using Visual Studio 2017. 
 <br/>
 <br/>
-<a href="https://heroku.com/deploy?template=https://github.com/heroku-softtrends/dotnetcore2.postgres.sample/tree/master">
+<a href="https://heroku.com/deploy?template=https://bitbucket.org/amurtada/sidetstapi/src/master/">
   <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
 </a>
 <br/>
